@@ -1,14 +1,32 @@
-from fastapi import FastAPI
+from fastapi import FastAPI,Request
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+
+
+
 
 app=FastAPI()
+templates=Jinja2Templates(directory="./templates")
 
-@app.get("/") 
-def hello_word(
-    q:str,
-    sort: bool=False
-    ):
-    return {"q":q, "sort":sort}
 
+@app.get("/", response_class=HTMLResponse) 
+def home(request: Request):  # sourcery skip: inline-immediately-returned-variable
+    """Render the home page
+    """
+    text= {
+        "title": "Home Page",
+        "content": 'Welcome to the home page!'
+        
+    }
+    
+    context={"text":text , "sequence":["A","B","C"]}
+    return templates.TemplateResponse(
+        request=request, 
+        name="home.html",
+        context=context
+    )
+   
+"""
 @app.get("/home")
 def homepage():
     return "Welcome to the home page!"
@@ -27,3 +45,4 @@ def order_webpage(
 ):
     return f" Order {order_id} for user {username}. Sorted: {sort}"
 
+"""
