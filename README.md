@@ -27,6 +27,14 @@ Questa applicazione fornisce un'interfaccia web per visualizzare e gestire un ca
    ```
 
 2. **Creare un ambiente virtuale (opzionale ma consigliato):**
+   
+   **Con conda:**
+   ```bash
+   conda create --name pw_lab python=3.10
+   conda activate pw_lab
+   ```
+
+   **Con venv:**
    ```bash
    python -m venv venv
    source venv/bin/activate  # su macOS/Linux
@@ -44,8 +52,9 @@ Questa applicazione fornisce un'interfaccia web per visualizzare e gestire un ca
 ### Avviare il server di sviluppo:
 
 ```bash
-uvicorn main:app --reload
+fastapi dev main.py
 ```
+*(In alternativa è possibile continuare a usare `uvicorn main:app --reload`)*
 
 L'applicazione sarà disponibile su `http://localhost:8000`
 
